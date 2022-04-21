@@ -6,13 +6,13 @@ pipeline {
         IMAGETAG      = '1.0.0'         // 镜像标签
         APPPORT       = '8089'          // 应用占用的端口
         APPDIR        = '/opt/app'      // 应用工作的目录
+        WORKSPACE     = '/var/jenkins_home'
     }
 
     agent {
         docker {
             image 'mcr.microsoft.com/dotnet/sdk:6.0' 
-            args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker'
-            args '-u root:root'
+            args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker'            
         }
     }
     stages {
@@ -22,6 +22,7 @@ pipeline {
         stage('Build') { 
             steps {
                 echo 'building start! first,restore reference.'
+                sh 'dotnet --version'
                 sh 'dotnet restore'
             }
         }
