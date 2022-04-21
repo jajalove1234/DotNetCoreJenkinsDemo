@@ -20,6 +20,7 @@ pipeline {
         // 开始构建，debug、test，在此过程中还原程序nuget依赖、输出 debug、单元测试等
         stage('Build') { 
             steps {
+                echo 'building start! first,restore reference.'
                 sh 'dotnet restore'
             }
         }
